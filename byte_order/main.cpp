@@ -14,6 +14,18 @@ void dump(void* p, size_t n) {
 	printf("\n");
 }
 
+uint16_t my_ntohs(uint16_t a)
+{
+	uint16_t a1 = ((a & 0xFF) << 8) | ((a & 0xFF00) >> 8);
+	return (a1);
+}
+
+uint32_t my_ntohl(uint32_t a)
+{
+	uint32_t a1 = ((a & 0xFF) << 24 | (a & 0xFF00) << 8 | (a & 0xFF0000) >> 8 | (a & 0xFF000000) >> 24);
+	return (a1);
+}
+
 void write_4660() {
 	uint16_t port = 4660; // 0x1234
 	printf("port number = %d\n", port);
@@ -23,14 +35,14 @@ void write_4660() {
 void  write_0x1234() {
 	uint8_t network_buffer[] = { 0x12, 0x34 };
 	uint16_t* p = reinterpret_cast<uint16_t*>(network_buffer);
-	uint16_t n = *p; // TODO
+	uint16_t n = my_ntohs(*p); // TODO
 	printf("16 bit number=0x%x\n", n);  //3412
 }
 
 void  write_0x12345678() {
 	uint8_t network_buffer[] = { 0x12, 0x34, 0x56, 0x78 };
 	uint32_t* p = reinterpret_cast<uint32_t*>(network_buffer);
-	uint32_t n = *p; // TODO
+	uint32_t n = my_ntohl(*p);
 	printf("32 bit number=0x%x\n", n);
 }
 
@@ -38,4 +50,4 @@ int main() {
 	write_4660();
 	write_0x1234();
 	write_0x12345678();
-}
+}	
