@@ -7,9 +7,3 @@ int sum(int n)
 		sum += i;
 	return sum;
 }
-
-int main()
-{
-	printf("%d", sum(100));
-	return 0;
-}
